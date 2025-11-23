@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createCanvas, loadImage, registerFont } from '@napi-rs/canvas';
+import { createCanvas, loadImage } from '@napi-rs/canvas';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
 
@@ -22,25 +22,6 @@ export async function GET(request: NextRequest) {
     // 배경색 설정
     ctx.fillStyle = '#F5F5F5';
     ctx.fillRect(0, 0, 400, 400);
-
-    // Pretendard 폰트 등록
-    const fontDir = join(process.cwd(), 'public', 'fonts', 'Pretendard');
-    
-    try {
-      // Pretendard Bold 등록
-      const boldFontPath = join(fontDir, 'Pretendard-Bold.otf');
-      registerFont(boldFontPath, { family: 'Pretendard', weight: 'bold' });
-    } catch (err) {
-      console.warn('Pretendard Bold 폰트를 찾을 수 없습니다. 기본 폰트를 사용합니다.');
-    }
-
-    try {
-      // Pretendard Regular 등록
-      const regularFontPath = join(fontDir, 'Pretendard-Regular.otf');
-      registerFont(regularFontPath, { family: 'Pretendard', weight: 'normal' });
-    } catch (err) {
-      console.warn('Pretendard Regular 폰트를 찾을 수 없습니다. 기본 폰트를 사용합니다.');
-    }
 
     // 광수 이미지 로드
     const baseImagePath = join(process.cwd(), 'public', 'kwangsoo-base.png.png');
@@ -168,7 +149,7 @@ export async function GET(request: NextRequest) {
 
     // PNG 버퍼 반환
     const buffer = canvas.toBuffer('image/png');
-    return new NextResponse(buffer, {
+    return new Response(new Uint8Array(buffer), {
       headers: {
         'Content-Type': 'image/png',
         'Cache-Control': 'public, max-age=31536000, immutable',
