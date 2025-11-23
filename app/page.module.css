@@ -1,8 +1,9 @@
 .container {
   padding: 32px;
   background-color: #2356C8;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   color: #C93CCA;
@@ -10,11 +11,25 @@
   overflow-y: auto;
 }
 
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+  }
+}
+
 .logo {
   display: block;
   margin: 0 auto 40px auto;
   width: 200px;
+  max-width: 100%;
   height: auto;
+}
+
+@media (max-width: 768px) {
+  .logo {
+    width: 150px;
+    margin-bottom: 24px;
+  }
 }
 
 .inputRow {
@@ -34,6 +49,13 @@
   flex-shrink: 0;
 }
 
+@media (max-width: 768px) {
+  .label {
+    font-size: 18px;
+    width: 60px;
+  }
+}
+
 .input {
   flex: 1;
   height: 48px;
@@ -45,6 +67,14 @@
   color: white;
   outline: none;
   padding: 0 4px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .input {
+    font-size: 18px;
+    height: 40px;
+  }
 }
 
 .input::placeholder {
@@ -60,6 +90,12 @@
   white-space: nowrap;
 }
 
+@media (max-width: 768px) {
+  .cm {
+    font-size: 18px;
+  }
+}
+
 .calcButton {
   display: block;
   margin: 40px auto 0 auto;
@@ -71,7 +107,14 @@
 
 .calcButtonImage {
   width: 200px;
+  max-width: 100%;
   height: auto;
+}
+
+@media (max-width: 768px) {
+  .calcButtonImage {
+    width: 150px;
+  }
 }
 
 .divider {
@@ -112,4 +155,11 @@
   border: none;
   padding: 0;
   cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .serviceInfo,
+  .from {
+    font-size: 18px;
+  }
 }
