@@ -1,0 +1,113 @@
+.container {
+  width: 100vw;
+  min-height: 100vh;
+  background-color: #2356C8;
+  padding: 32px;
+  color: #C93CCA;
+  font-family: 'AeonikPro', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  display: block;
+  margin: 0 auto 32px auto;
+  width: 200px;
+  height: auto;
+}
+
+.imageContainer {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
+}
+
+.imageContainer:active {
+  cursor: grabbing;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 400px;
+  height: 400px;
+}
+
+.imageSlide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 400px;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.generatedImage {
+  width: 400px;
+  height: 400px;
+  object-fit: contain;
+  display: block;
+  border-radius: 16px;
+  pointer-events: none;
+}
+
+.loading {
+  font-family: 'AeonikPro', sans-serif;
+  font-size: 24px;
+  color: #C93CCA;
+  margin-top: 40px;
+}
+
+.downloadButton {
+  margin-top: 24px;
+  padding: 12px 24px;
+  font-family: 'AeonikPro', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #C93CCA;
+  background: transparent;
+  border: 2px solid #C93CCA;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.downloadButton:hover {
+  background: #C93CCA;
+  color: #2356C8;
+}
+
+.indicators {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  justify-content: center;
+}
+
+.indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(201, 60, 202, 0.3);
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.3s ease;
+}
+
+.indicator:hover {
+  background: rgba(201, 60, 202, 0.5);
+}
+
+.indicator.active {
+  background: #C93CCA;
+  width: 24px;
+  border-radius: 5px;
+}
+

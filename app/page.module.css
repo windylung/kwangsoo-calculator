@@ -1,141 +1,115 @@
-.page {
-  --background: #fafafa;
-  --foreground: #fff;
-
-  --text-primary: #000;
-  --text-secondary: #666;
-
-  --button-primary-hover: #383838;
-  --button-secondary-hover: #f2f2f2;
-  --button-secondary-border: #ebebeb;
-
-  display: flex;
-  min-height: 100vh;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-geist-sans);
-  background-color: var(--background);
-}
-
-.main {
-  display: flex;
-  min-height: 100vh;
-  width: 100%;
-  max-width: 800px;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
-  background-color: var(--foreground);
-  padding: 120px 60px;
-}
-
-.intro {
+.container {
+  padding: 32px;
+  background-color: #2356C8;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-  gap: 24px;
+  color: #C93CCA;
+  font-family: 'AeonikPro', sans-serif;
+  overflow-y: auto;
 }
 
-.intro h1 {
-  max-width: 320px;
-  font-size: 40px;
-  font-weight: 600;
-  line-height: 48px;
-  letter-spacing: -2.4px;
-  text-wrap: balance;
-  color: var(--text-primary);
+.logo {
+  display: block;
+  margin: 0 auto 40px auto;
+  width: 200px;
+  height: auto;
 }
 
-.intro p {
-  max-width: 440px;
-  font-size: 18px;
-  line-height: 32px;
-  text-wrap: balance;
-  color: var(--text-secondary);
-}
-
-.intro a {
-  font-weight: 500;
-  color: var(--text-primary);
-}
-
-.ctas {
+.inputRow {
   display: flex;
-  flex-direction: row;
-  width: 100%;
-  max-width: 440px;
-  gap: 16px;
-  font-size: 14px;
-}
-
-.ctas a {
-  display: flex;
-  justify-content: center;
   align-items: center;
-  height: 40px;
-  padding: 0 16px;
-  border-radius: 128px;
-  border: 1px solid transparent;
-  transition: 0.2s;
+  margin-bottom: 20px;
+  gap: 12px;
+}
+
+.label {
+  font-family: 'AeonikPro', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  color: #C93CCA;
+  white-space: nowrap;
+  width: 80px;
+  flex-shrink: 0;
+}
+
+.input {
+  flex: 1;
+  height: 48px;
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid #C93CCA;
+  font-family: 'AeonikPro', sans-serif;
+  font-size: 24px;
+  color: white;
+  outline: none;
+  padding: 0 4px;
+}
+
+.input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.cm {
+  font-family: 'AeonikPro', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  color: #C93CCA;
+  opacity: 0.7;
+  white-space: nowrap;
+}
+
+.calcButton {
+  display: block;
+  margin: 40px auto 0 auto;
   cursor: pointer;
-  width: fit-content;
-  font-weight: 500;
+  border: none;
+  background: transparent;
+  padding: 0;
 }
 
-a.primary {
-  background: var(--text-primary);
-  color: var(--background);
-  gap: 8px;
+.calcButtonImage {
+  width: 200px;
+  height: auto;
 }
 
-a.secondary {
-  border-color: var(--button-secondary-border);
+.divider {
+  margin: 24px 0 30px 0;
+  width: 100%;
+  height: 10px;
+  background-image: url('/divider.png');
+  background-repeat: repeat-x;
+  background-size: auto 100%;
+  display: block;
 }
 
-/* Enable hover only on non-touch devices */
-@media (hover: hover) and (pointer: fine) {
-  a.primary:hover {
-    background: var(--button-primary-hover);
-    border-color: transparent;
-  }
-
-  a.secondary:hover {
-    background: var(--button-secondary-hover);
-    border-color: transparent;
-  }
+.footerSection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
 }
 
-@media (max-width: 600px) {
-  .main {
-    padding: 48px 24px;
-  }
-
-  .intro {
-    gap: 16px;
-  }
-
-  .intro h1 {
-    font-size: 32px;
-    line-height: 40px;
-    letter-spacing: -1.92px;
-  }
+.serviceInfo {
+  font-family: 'AeonikPro', sans-serif;
+  font-size: 24px;
+  text-decoration: underline;
+  cursor: pointer;
+  color: #C93CCA;
+  background: transparent;
+  border: none;
+  padding: 0;
+  text-align: right;
 }
 
-@media (prefers-color-scheme: dark) {
-  .logo {
-    filter: invert();
-  }
-
-  .page {
-    --background: #000;
-    --foreground: #000;
-
-    --text-primary: #ededed;
-    --text-secondary: #999;
-
-    --button-primary-hover: #ccc;
-    --button-secondary-hover: #1a1a1a;
-    --button-secondary-border: #1a1a1a;
-  }
+.from {
+  font-family: 'AeonikPro', sans-serif;
+  font-size: 24px;
+  text-align: right;
+  color: #C93CCA;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
 }
