@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createCanvas, loadImage } from '@napi-rs/canvas';
+import { createCanvas, loadImage, GlobalFonts } from '@napi-rs/canvas';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
 
@@ -14,6 +14,28 @@ export async function GET(request: NextRequest) {
 
     // ratio 계산
     const ratio = (height / 190).toFixed(2);
+
+    // Pretendard 폰트 등록
+    const fontDir = join(process.cwd(), 'public', 'fonts', 'Pretendard');
+    try {
+      const boldFontPath = join(fontDir, 'Pretendard-Bold.otf');
+      const regularFontPath = join(fontDir, 'Pretendard-Regular.otf');
+      
+      if (!GlobalFonts.has('Pretendard')) {
+        try {
+          GlobalFonts.registerFromPath(boldFontPath, 'Pretendard');
+        } catch (err) {
+          console.warn('Pretendard Bold 폰트 등록 실패:', err);
+        }
+        try {
+          GlobalFonts.registerFromPath(regularFontPath, 'Pretendard');
+        } catch (err) {
+          console.warn('Pretendard Regular 폰트 등록 실패:', err);
+        }
+      }
+    } catch (err) {
+      console.warn('Pretendard 폰트 파일을 찾을 수 없습니다. 기본 폰트를 사용합니다.');
+    }
 
     // Canvas 생성 (400x400)
     const canvas = createCanvas(400, 400);
