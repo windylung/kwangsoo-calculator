@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@napi-rs/canvas": "^0.1.82",
+    "@vercel/analytics": "^1.5.0",
     "@vercel/kv": "^0.2.4",
     "next": "16.0.3",
     "react": "19.2.0",
