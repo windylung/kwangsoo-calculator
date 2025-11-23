@@ -2,12 +2,29 @@
   font-family: 'AeonikPro';
   src: url('/fonts/AeonikProTRIAL/AeonikProTRIAL-Regular.otf') format('opentype');
   font-weight: 400;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'AeonikPro';
   src: url('/fonts/AeonikProTRIAL/AeonikProTRIAL-Bold.otf') format('opentype');
   font-weight: 700;
+  font-display: swap;
+}
+
+/* 폰트 파일이 없을 경우 fallback */
+@supports not (font-display: swap) {
+  @font-face {
+    font-family: 'AeonikPro';
+    src: local('Arial'), local('Helvetica'), local('sans-serif');
+    font-weight: 400;
+  }
+  
+  @font-face {
+    font-family: 'AeonikPro';
+    src: local('Arial Bold'), local('Helvetica Bold'), local('sans-serif');
+    font-weight: 700;
+  }
 }
 
 * {
@@ -24,7 +41,7 @@ body {
 }
 
 body {
-  font-family: 'AeonikPro', sans-serif;
+  font-family: 'AeonikPro', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
