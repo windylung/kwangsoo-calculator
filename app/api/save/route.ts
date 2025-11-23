@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { writeFile, mkdir, readFile } from 'fs/promises';
 import { join } from 'path';
 import { existsSync } from 'fs';
+import { Redis } from '@upstash/redis';
 
 export const runtime = 'nodejs';
 
@@ -13,26 +14,38 @@ interface SaveData {
   ip?: string;
 }
 
-// Vercel KV 사용 여부 확인
-const useVercelKV = () => {
+// Upstash Redis 사용 여부 확인
+const useUpstashRedis = () => {
   return !!(
-    process.env.KV_REST_API_URL &&
-    process.env.KV_REST_API_TOKEN
+    (process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL) &&
+    (process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN)
   );
 };
 
-// Vercel KV로 저장
-async function saveToVercelKV(saveData: SaveData) {
-  const { kv } = await import('@vercel/kv');
+// Upstash Redis로 저장
+async function saveToUpstashRedis(saveData: SaveData) {
+  // Vercel KV는 Upstash Redis를 사용하므로 환경 변수 이름이 다를 수 있음
+  // UPSTASH_REDIS_REST_URL/TOKEN 또는 KV_REST_API_URL/TOKEN 모두 지원
+  const url = process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL;
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN;
+  
+  if (!url || !token) {
+    throw new Error('Upstash Redis 환경 변수가 설정되지 않았습니다.');
+  }
+  
+  const redis = new Redis({
+    url: url,
+    token: token,
+  });
   
   // 기존 로그 가져오기
-  const existingLogs = await kv.get<SaveData[]>('logs') || [];
+  const existingLogs = await redis.get<SaveData[]>('logs') || [];
   
   // 새 데이터 추가
   const updatedLogs = [...existingLogs, saveData];
   
-  // KV에 저장
-  await kv.set('logs', updatedLogs);
+  // Redis에 저장
+  await redis.set('logs', updatedLogs);
   
   return updatedLogs;
 }
@@ -119,11 +132,11 @@ export async function POST(request: NextRequest) {
       ip,
     };
 
-    // Vercel KV 사용 여부에 따라 저장 방식 선택
-    if (useVercelKV()) {
-      // Vercel 배포 환경: Vercel KV 사용
-      await saveToVercelKV(saveData);
-      console.log('데이터 저장 완료 (Vercel KV):', saveData);
+    // Upstash Redis 사용 여부에 따라 저장 방식 선택
+    if (useUpstashRedis()) {
+      // 배포 환경: Upstash Redis 사용
+      await saveToUpstashRedis(saveData);
+      console.log('데이터 저장 완료 (Upstash Redis):', saveData);
     } else {
       // 로컬 개발 환경: 파일 기반 저장
       await saveToFile(saveData);
@@ -135,7 +148,7 @@ export async function POST(request: NextRequest) {
         success: true, 
         message: '데이터가 저장되었습니다.',
         data: saveData,
-        storage: useVercelKV() ? 'vercel-kv' : 'file'
+        storage: useUpstashRedis() ? 'upstash-redis' : 'file'
       },
       { status: 200 }
     );
